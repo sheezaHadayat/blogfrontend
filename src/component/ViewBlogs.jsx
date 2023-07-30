@@ -1,32 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const ViewBlogs = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    // Fetch all blogs from the backend
-    fetch('/api/blogs')
-      .then((response) => response.json())
-      .then((data) => setBlogs(data))
-      .catch((err) => console.error(err));
+    fetchBlogs();
   }, []);
+
+  const fetchBlogs = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/database');
+      setBlogs(response.data);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to fetch blogs. Please try again.');
+    }
+  };
 
   const handleDeleteBlog = async (id) => {
     try {
-      // Delete the selected blog from the backend
-      const response = await fetch(`/api/blogs/${id}`, { method: 'DELETE' });
-
-      if (response.ok) {
-        // Update the 'blogs' state to remove the deleted blog from the view
-        setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
-        alert('Blog deleted successfully!');
-      } else {
-        alert('Failed to delete the blog.');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Failed to delete the blog.');
+      await axios.delete(`http://localhost:5000/database${id}`);
+      fetchBlogs(); // Refresh the blogs list after deletion
+    } catch (error) {
+      console.error(error);
+      alert('Failed to delete blog. Please try again.');
     }
   };
 
@@ -40,8 +39,14 @@ const ViewBlogs = () => {
         <div>
           {blogs.map((blog) => (
             <div key={blog.id}>
-              <h3>{blog.title}</h3>
-              <img src={blog.coverImage} alt={blog.title} />
+              <h2>{blog.title}</h2>
+              {blog.cover_image && (
+                <img
+                  src={`http://localhost:5000/uploads/${blog.cover_image}`}
+                  alt="Blog Cover"
+                  style={{ maxWidth: '300px' }}
+                />
+              )}
               <div dangerouslySetInnerHTML={{ __html: blog.content }} />
               <button onClick={() => handleDeleteBlog(blog.id)}>Delete</button>
               <hr />
