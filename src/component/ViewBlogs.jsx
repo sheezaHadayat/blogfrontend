@@ -11,7 +11,7 @@ const ViewBlogs = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/database');
+      const response = await axios.get('distinct-salt-bream.glitch.me/database');
       setBlogs(response.data);
     } catch (error) {
       console.error(error);
@@ -21,7 +21,7 @@ const ViewBlogs = () => {
 
   const handleDeleteBlog = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/database${id}`);
+      await axios.delete(`distinct-salt-bream.glitch.me/database${id}`);
       fetchBlogs(); // Refresh the blogs list after deletion
     } catch (error) {
       console.error(error);
@@ -42,7 +42,7 @@ const ViewBlogs = () => {
               <h2>{blog.title}</h2>
               {blog.cover_image && (
                 <img
-                  src={`http://localhost:5000/uploads/${blog.cover_image}`}
+                  src={`distinct-salt-bream.glitch.me/uploads/${blog.cover_image}`}
                   alt="Blog Cover"
                   style={{ maxWidth: '300px' }}
                 />
