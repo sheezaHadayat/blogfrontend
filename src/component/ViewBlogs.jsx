@@ -11,7 +11,7 @@ const ViewBlogs = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get('distinct-salt-bream.glitch.me/database');
+      const response = await axios.get('distinct-salt-bream.glitch.me');
       setBlogs(response.data);
     } catch (error) {
       console.error(error);
@@ -21,7 +21,7 @@ const ViewBlogs = () => {
 
   const handleDeleteBlog = async (id) => {
     try {
-      await axios.delete(`distinct-salt-bream.glitch.me/database${id}`);
+      await axios.delete(`distinct-salt-bream.glitch.me${id}`);
       fetchBlogs(); // Refresh the blogs list after deletion
     } catch (error) {
       console.error(error);

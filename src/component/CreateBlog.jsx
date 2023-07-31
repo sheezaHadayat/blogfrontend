@@ -26,7 +26,7 @@ const CreateBlog = () => {
       formData.append('content', content);
       formData.append('coverImage', coverImage);
 
-      await axios.post('distinct-salt-bream.glitch.me/database', formData, {
+      await axios.post('distinct-salt-bream.glitch.me', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
