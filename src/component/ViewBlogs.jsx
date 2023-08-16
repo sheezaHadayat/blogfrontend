@@ -11,7 +11,7 @@ const ViewBlogs = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get('distinct-salt-bream.glitch.me');
+      const response = await axios.get('https://glitch.com/edit/#!/valiant-fine-tin/database/retrieve');
       setBlogs(response.data);
     } catch (error) {
       console.error(error);
@@ -19,15 +19,15 @@ const ViewBlogs = () => {
     }
   };
 
-  const handleDeleteBlog = async (id) => {
-    try {
-      await axios.delete(`distinct-salt-bream.glitch.me${id}`);
-      fetchBlogs(); // Refresh the blogs list after deletion
-    } catch (error) {
-      console.error(error);
-      alert('Failed to delete blog. Please try again.');
-    }
-  };
+  // const handleDeleteBlog = async (id) => {
+  //   try {
+  //     await axios.delete(`http://localhost:5000/database/store${id}`);
+  //     fetchBlogs(); // Refresh the blogs list after deletion
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('Failed to delete blog. Please try again.');
+  //   }
+  // };
 
   return (
     <div>
@@ -42,13 +42,13 @@ const ViewBlogs = () => {
               <h2>{blog.title}</h2>
               {blog.cover_image && (
                 <img
-                  src={`distinct-salt-bream.glitch.me/uploads/${blog.cover_image}`}
+                  src={`https://glitch.com/edit/#!/valiant-fine-tin/uploads/${blog.cover_image}`}
                   alt="Blog Cover"
                   style={{ maxWidth: '300px' }}
                 />
               )}
               <div dangerouslySetInnerHTML={{ __html: blog.content }} />
-              <button onClick={() => handleDeleteBlog(blog.id)}>Delete</button>
+              {/* <button onClick={() => handleDeleteBlog(blog.id)}>Delete</button> */}
               <hr />
             </div>
           ))}
